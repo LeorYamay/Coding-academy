@@ -35,6 +35,10 @@
     width: 300px;
 }
 
+.show{
+    display: block;
+}
+
 .modal button {
     float:right;
 }

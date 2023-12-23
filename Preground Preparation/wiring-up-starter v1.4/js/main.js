@@ -1,27 +1,63 @@
 'use strict'
 
-function onInit(){
- // TODO: change the h1 txt
- console.log('hello')
+function onInit() {
+    setTimeout(function () {
+        const h1Element = document.querySelector('h1');
+        if (h1Element) {
+            h1Element.textContent = "I Love JS";
+        }
+
+        console.log('hello')
+    }
+        , 3000);
 }
 
+let gIsMark = "Mark";
 function onMark(elBtn) {
-    // TODO: change text in the button
-    // TODO: mark all spans inside .box
+    const spansInBox = document.querySelectorAll('.box span');
+    spansInBox.forEach(function (span) {
+        if (span.classList.contains('mark')) {
+            span.classList.remove('mark');
+        }
+        else {
+            span.classList.add('mark');
+        }
+    }
+    )
+    if (gIsMark === "Mark") {
+        gIsMark = "UnMark";
+    } else {
+        gIsMark = "Mark";
+    }
+    elBtn.textContent = gIsMark;
+
 }
 
 
 function onMouseOver(elImg) {
     // TODO: change the image
+    elImg.src = "img/ca.png"
 }
 
 function onMouseOut(elImg) {
     // TODO: change the image
+    elImg.src ="img/ninja.png"
 }
-
+function onImgClicked(){
+    const modalElement = document.querySelector('.modal');
+    if (modalElement) {
+        // modalElement.style.backgroundColor = getRandomColor();
+        onOpenModal(modalElement)
+    }
+}
 function onChangeSubHeader(elSpan) {
-    alert('hi')
-
+    // alert('hi')
+    if (gIsMark === "UnMark") {
+        const h2Element = document.querySelector('h2');
+        if (h2Element) {
+            h2Element.textContent += " " + elSpan.textContent;
+        }
+    }
     // elSpan.classlist
     // TODO: change the text in the span inside the h2
 }
@@ -32,16 +68,31 @@ function onHandleKey(ev) {
 
 }
 
-function onOpenModal() {
+function onOpenModal(modalElement) {
     // Todo: show the modal and schedule its closing
+    modalElement.classList.add('show')
+    setTimeout(function () {
+        onCloseModal(modalElement)
+    }, 5000);
 }
-function onCloseModal() {
+function onCloseModal(modalElement) {
     // Todo: hide the modal
+    modalElement.classList.remove('show')
+
 }
 
 
 function onBless() {
-    // Todo: update the modal content and use openModal
+    const modalTextElement = document.getElementById('modalText');
+    if (modalTextElement){
+        modalTextElement.textContent = "You were blessed at " + getTime();
+    }
+    const modalElement = document.querySelector('.modal');
+    if (modalElement) {
+        modalElement.style.backgroundColor = getRandomColor();
+        onOpenModal(modalElement)
+    }
+
 }
 
 
@@ -57,4 +108,14 @@ function getRandomColor() {
     }
     return color;
 }
-
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' || event.keyCode === 27) {
+        const modalElement = document.querySelector('.modal');
+        if (modalElement) {
+            modalElement.style.backgroundColor = getRandomColor();
+            onCloseModal(modalElement)
+        }
+      console.log('Escape key pressed');
+      // Call your function or execute your code here
+    }
+  });
