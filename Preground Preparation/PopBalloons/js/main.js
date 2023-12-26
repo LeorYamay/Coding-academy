@@ -6,7 +6,7 @@ const sound = new Audio('audio/mixkit-click-balloon-small-burst-3070.wav')
 function onInit() {
     gameInterval()
 }
-const maybeCreateBalloon = () => {
+const maybeCreateBalloon =  () => {
     const randomchance = Math.random();
     if (randomchance > balloonCreateChance) {
         placeRandomBalloon();
