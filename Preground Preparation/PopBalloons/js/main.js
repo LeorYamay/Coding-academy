@@ -1,57 +1,61 @@
+const gameRefreshRate = 1000;
+const balloonFloatRate = 10;
+const balloonCreateChance = 0.5;
+const sound = new Audio('audio/mixkit-click-balloon-small-burst-3070.wav')
+
 function onInit() {
-    randomTimedEvent()
+    gameInterval()
 }
-var sound =new Audio('audio/mixkit-click-balloon-small-burst-3070.wav') 
-function randomBalloon() {
-    // debugger;
-    var randomchance = Math.random();
-    if (randomchance>0.5){
-        var newDivBalloon = document.createElement('div');
+const maybeCreateBalloon = () => {
+    const randomchance = Math.random();
+    if (randomchance > balloonCreateChance) {
+        placeRandomBalloon();
+    }
+
+    function placeRandomBalloon() {
+        const newDivBalloon = document.createElement('div');
         newDivBalloon.classList.add('balloon');
         newDivBalloon.style.left = Math.random() * 90 + '%';
-        newDivBalloon.addEventListener('click',function(){
+        newDivBalloon.addEventListener('click', function () {
             pop(newDivBalloon);
-        })
+        });
         document.body.appendChild(newDivBalloon);
     }
 }
 
-function randomTimedEvent() {
-    randomBalloon();
+function gameInterval() {
+    maybeCreateBalloon();
     floatBalloons();
-    setTimeout(randomTimedEvent, 1000);
+    setTimeout(gameInterval, gameRefreshRate);
 }
+
 function floatBalloons() {
-    var balloons = document.querySelectorAll('.balloon');
+    const balloons = document.querySelectorAll('.balloon');
     balloons.forEach(function (balloon) {
-        var balloonBottomPercent = currentBottomPercent(balloon.style.bottom);
-        if (balloonBottomPercent<=100 && balloonBottomPercent >= 0)
-        {
-            balloon.style.bottom = addToBottom(balloonBottomPercent);
+        moveOrRemove(balloon);
+    })
+
+    function moveOrRemove(balloon) {
+        const balloonBottomPercent = getCurrentBottomPercent(balloon.style.bottom);
+        if (balloonBottomPercent < 100 && balloonBottomPercent >= 0) {
+            balloon.style.bottom = Math.min(balloonBottomPercent + balloonFloatRate, 100) + '%';
         }
-        else{
+        else {
             balloon.remove();
         }
-    })
+    }
 }
-function pop(balloon){
+function pop(balloon) {
     balloon.classList.add('poppedBalloon');
     sound.play();
 }
-function addToBottom(currentPercent) {
 
-        if (currentPercent >= 0 && currentPercent <= 100) {
-            var newPercent = currentPercent + Math.min(currentPercent + 1, 100) + '%';
-            return newPercent;
-        }
-    return '5%';
-}
-function currentBottomPercent(currentBottom) {
+function getCurrentBottomPercent(currentBottom) {
     if (currentBottom) {
         var currentPercent = parseFloat(currentBottom);
         if (!isNaN(currentPercent)) {
             return currentPercent;
         }
     }
-    return 0;
+    return 5;
 }
