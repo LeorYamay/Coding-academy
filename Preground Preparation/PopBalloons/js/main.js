@@ -1,121 +1,57 @@
-'use strict'
-
 function onInit() {
-    setTimeout(function () {
-        const h1Element = document.querySelector('h1');
-        if (h1Element) {
-            h1Element.textContent = "I Love JS";
+    randomTimedEvent()
+}
+var sound =new Audio('audio/mixkit-click-balloon-small-burst-3070.wav') 
+function randomBalloon() {
+    // debugger;
+    var randomchance = Math.random();
+    if (randomchance>0.5){
+        var newDivBalloon = document.createElement('div');
+        newDivBalloon.classList.add('balloon');
+        newDivBalloon.style.left = Math.random() * 90 + '%';
+        newDivBalloon.addEventListener('click',function(){
+            pop(newDivBalloon);
+        })
+        document.body.appendChild(newDivBalloon);
+    }
+}
+
+function randomTimedEvent() {
+    randomBalloon();
+    floatBalloons();
+    setTimeout(randomTimedEvent, 1000);
+}
+function floatBalloons() {
+    var balloons = document.querySelectorAll('.balloon');
+    balloons.forEach(function (balloon) {
+        var balloonBottomPercent = currentBottomPercent(balloon.style.bottom);
+        if (balloonBottomPercent<=100 && balloonBottomPercent >= 0)
+        {
+            balloon.style.bottom = addToBottom(balloonBottomPercent);
         }
-
-        console.log('hello')
-    }
-        , 3000);
-}
-
-let gIsMark = "Mark";
-function onMark(elBtn) {
-    const spansInBox = document.querySelectorAll('.box span');
-    spansInBox.forEach(function (span) {
-        if (span.classList.contains('mark')) {
-            span.classList.remove('mark');
+        else{
+            balloon.remove();
         }
-        else {
-            span.classList.add('mark');
+    })
+}
+function pop(balloon){
+    balloon.classList.add('poppedBalloon');
+    sound.play();
+}
+function addToBottom(currentPercent) {
+
+        if (currentPercent >= 0 && currentPercent <= 100) {
+            var newPercent = currentPercent + Math.min(currentPercent + 1, 100) + '%';
+            return newPercent;
         }
-    }
-    )
-    if (gIsMark === "Mark") {
-        gIsMark = "UnMark";
-    } else {
-        gIsMark = "Mark";
-    }
-    elBtn.textContent = gIsMark;
-
+    return '5%';
 }
-
-
-function onMouseOver(elImg) {
-    // TODO: change the image
-    elImg.src = "img/ca.png"
-}
-
-function onMouseOut(elImg) {
-    // TODO: change the image
-    elImg.src ="img/ninja.png"
-}
-function onImgClicked(){
-    const modalElement = document.querySelector('.modal');
-    if (modalElement) {
-        // modalElement.style.backgroundColor = getRandomColor();
-        onOpenModal(modalElement)
-    }
-}
-function onChangeSubHeader(elSpan) {
-    // alert('hi')
-    if (gIsMark === "UnMark") {
-        const h2Element = document.querySelector('h2');
-        if (h2Element) {
-            h2Element.textContent += " " + elSpan.textContent;
+function currentBottomPercent(currentBottom) {
+    if (currentBottom) {
+        var currentPercent = parseFloat(currentBottom);
+        if (!isNaN(currentPercent)) {
+            return currentPercent;
         }
     }
-    // elSpan.classlist
-    // TODO: change the text in the span inside the h2
+    return 0;
 }
-
-function onHandleKey(ev) {
-    // TODO: close the modal if escape is pressed
-    console.log('ev:', ev);
-
-}
-
-function onOpenModal(modalElement) {
-    // Todo: show the modal and schedule its closing
-    modalElement.classList.add('show')
-    setTimeout(function () {
-        onCloseModal(modalElement)
-    }, 5000);
-}
-function onCloseModal(modalElement) {
-    // Todo: hide the modal
-    modalElement.classList.remove('show')
-
-}
-
-
-function onBless() {
-    const modalTextElement = document.getElementById('modalText');
-    if (modalTextElement){
-        modalTextElement.textContent = "You were blessed at " + getTime();
-    }
-    const modalElement = document.querySelector('.modal');
-    if (modalElement) {
-        modalElement.style.backgroundColor = getRandomColor();
-        onOpenModal(modalElement)
-    }
-
-}
-
-
-function getTime() {
-    return new Date().toString().split(' ')[4];
-}
-
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape' || event.keyCode === 27) {
-        const modalElement = document.querySelector('.modal');
-        if (modalElement) {
-            modalElement.style.backgroundColor = getRandomColor();
-            onCloseModal(modalElement)
-        }
-      console.log('Escape key pressed');
-      // Call your function or execute your code here
-    }
-  });

@@ -1,44 +1,20 @@
 
-
-.box {
-    max-width: 600px;
-    margin: auto;
-    border: 1px solid lightblue;
-    border-radius: 4px;
-    padding: 10px;
-    margin:10px;
-}
-
-.box img {
-    display: block;
-    margin:auto;
-    cursor: pointer;
-}
-
-.mark {
-    background-color: lightblue;
-    padding:0 2px;
-}
-
-.mark:hover {
-    color:white;
-    cursor: pointer;
-}
-
-.modal {
-    background-color: lightseagreen;
-    display:none;
+.balloon {
+    width: 60px;
+    height: 100px;
+    border-radius: 1px;
     position: absolute;
-    top:10px;
-    right: 10px;
-    padding: 5px;
-    width: 300px;
+    background-image: url('../img/balloon.jpg');
+    background-size: cover;
+    background-position: center;
+    bottom: 5%;
+    opacity: 100%;
+    transition: opacity 2s ;
+}
+.balloon:hover{
+    cursor: crosshair;
+}
+.poppedBalloon{
+    opacity: 0%;
 }
 
-.show{
-    display: block;
-}
-
-.modal button {
-    float:right;
-}
