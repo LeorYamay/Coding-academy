@@ -1,85 +1,73 @@
 
 function init() {
-    let clickCount = 0;
-    document.querySelector('button').onclick = (event) => {
-        clickCount++;
-        event.target.style.display = 'none';
-        setTimeout(() => { event.target.style.display = 'block'; }, 2000);
-        console.log('count: ', clickCount)
+    ex1();
+    ex2();
+    ex3();
+    ex4();
+}
+function ex1() {
+    console.log("ex1");
+    function onlyOneWord(input) {
+        return input.filter((phrase) => { return !phrase.includes(" ") })
     }
+    var input = ['return', 'phrases', 'with one word'];
+    var expected = ['return', 'phrases']
+    var actual = onlyOneWord(input)
+    console.log('INPUT:', input, 'EXPECTED:', expected, 'ACTUAL:', actual);
 
-    // ex2();
-
-    // ex3();
-
-    // ex4();
-
-    // ex5();
 }
 
 function ex2() {
     console.log("ex2");
-    function multBy(number){
-        return function inner(number2){
-            return number*number2
-        };
+    function revereseString(string){
+        return string.split('').reverse().join('');
     }
-    var multBy4 = multBy(4)
-    console.log("multBy4(2) // Should print 8 ", multBy4(2));
+    function reverseAll(strings){
+        return strings.map((string) => revereseString(string));
+    }
+    var input = ['abc', 'xyz'];
+    var expected = ['cba', 'zyx']
+    var actual = reverseAll(input)
+    console.log("input ['abc', 'xyz'], expected ['cba', 'zyx'], actual",actual);
 }
 
 
 
-function ex3(){
+function ex3() {
     console.log("ex3")
-    for (let i = 0; i < 5; i++) { //var => let
-        setTimeout( () => { console.log(i) }, i * 1000 )
-        }
+    function capitalizeLongerThan5(input){
+        return input.map((string)=>{
+            if (string.length>5){
+                string= capitalizeFirstChar(string)
+            } 
+            return string;
+        })
+    }
+    function capitalizeFirstChar(string){
+        return (string.charAt(0).toUpperCase() + string.slice(1));
+    }
+    var input = ['abcdefg', 'xyz'];
+    var expected = ['Abcdefg', 'xyz']
+    var actual = capitalizeLongerThan5 (input) 
+    console.log("input = ['abcdefg', 'xyz'], expected = ['Abcdefg', 'xyz'], actual ",capitalizeLongerThan5(input) ) 
 }
 
-function Tuple(v1, v2) {
-    let V1=v1;
-    let V2=v2;
-    return {
-    first(){return V1;},
-    second(){return V2;},
-    setFirst(newVal){V1=newVal},
-    sum(){return V1+V2;}
+
+function ex4() {
+    console.log("ex4")
+    function onlyVowels(input){
+        const vowels = ['a', 'e', 'i', 'o', 'u'];
+        return input.map((string)=>{
+            return string.split('').filter((letter)=> {return vowels.includes(letter)}).join('');
+        })
     }
-    // function first(){
-    //     return V1;
-    // }
-    // function second(){
-    //     return V2;
-    // }
-    // function sum(){
-    //     return V1+V2;
-    // }
-    // function setFirst(newVal){
-    //     V1=newVal;
-    // }
-    }
-    function ex4(){
-        console.log("ex4")
-        const t1 = Tuple(17, 5)
-        console.log('First: ', t1.first()) // prints 17
-        console.log('Second: ', t1.second()) // prints 5
-        console.log('Sum: ', t1.sum()) // prints 22
-        t1.setFirst(100)
-        console.log('Sum: ', t1.sum()) // prints 105
-    }
-    function ex5(){
-        console.log("ex5");
-        function mul(a){
-            return function(b){
-                return function(c){
-                    return a*b*c;
-                };
-            };
-        }
-        console.log(mul(2)(3)(4)) // output : 24
-        console.log(mul(4)(3)(4)) // output : 48
-    }
+    var input = ['average', 'exceptional', 'amazing'];
+    var expected = ['aeae', 'eeioa', 'aai']
+    var actual = onlyVowels(input)
+    console.log("input = ['average', 'exceptional', 'amazing'], expected = ['aeae', 'eeioa', 'aai'], actual ", onlyVowels(input))
+}
+
+
 
 
 
