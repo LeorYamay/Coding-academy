@@ -5,7 +5,7 @@
 // EX 1 - The code:
 let set = new Set()
 set.add(1)
-set.add(1)
+set.add(2)
 
 // testing (dont touch)
 console.log('EX 1:')
@@ -31,7 +31,7 @@ console.log('ACTUAL: set.has(2) =', set1.has(2))
 // EX 3 - The code:
 let set2 = new Set()
 set2.add('one')
-const returns = set2.delete('two')
+const returns = set2.delete('one')
 
 // testing (dont touch)
 console.log('\nEX 3:')
@@ -45,7 +45,7 @@ console.log('ACTUAL: returns =', returns)
 let set3 = new Set
 set3.add('one').add(2)
 set3.clear()
-var expectedSize
+var expectedSize = set3.size
 
 // testing (dont touch)
 console.log('\nEX 4:')

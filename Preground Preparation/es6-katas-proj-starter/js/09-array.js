@@ -3,7 +3,7 @@
 
 // ***************** Array.prototype.fill()
 // EX 1 - The code:
-var arr = new Array(3).fill()
+var arr = new Array(3).fill(5)
 
 // Testing (dont touch)
 console.log('EX 1:')
@@ -11,7 +11,7 @@ console.log('EXPECTED:', [5, 5, 5])
 console.log('ACTUAL:', arr)
 
 // EX 2 - The code:
-const fillPosition = 0
+const fillPosition = 2
 arr = [11, 12, 13].fill(42, fillPosition)
 
 // Testing (dont touch)
@@ -23,7 +23,7 @@ console.log('ACTUAL:', arr)
 
 // EX 3 - The code:
 const pets = [{ name: 'Charli' }, { name: 'Bobi' }]
-var pet = pets.find(p => p.name === 'Nobi')
+var pet = pets.find(p => p.name === 'Bobi')
 
 // Testing (dont touch)
 console.log('\nEX 3:')
@@ -31,7 +31,7 @@ console.log('EXPECTED: pet =', { name: "Bobi" })
 console.log('ACTUAL: pet =', pet)
 
 // EX 4 - The code:
-pet = pets.find(p => p.name === 'Charli')
+pet = pets.find(p => p.name === 'Charli1')
 
 // Testing (dont touch)
 console.log('\nEX 4:')
@@ -41,7 +41,7 @@ console.log('ACTUAL: pet =', pet)
 // ***************** Array.prototype.findIndex()
 
 // EX 5 - The code:
-var foundAt = [4, 9, 11, 2, 6].findIndex(x => x >= 9)
+var foundAt = [4, 9, 11, 2, 6].findIndex(x => x >= 9)+1
 
 // Testing (dont touch)
 console.log('\nEX 5:')
@@ -49,7 +49,7 @@ console.log('EXPECTED: foundAt =', 2)
 console.log('ACTUAL: foundAt =', foundAt)
 
 // EX 6 - The code:
-foundAt1 = [1, 2, 3].findIndex(item => item < 0)
+foundAt1 = [1, 2, 3].findIndex(item => item === 2)
 
 // Testing (dont touch)
 console.log('\nEX 6:')
@@ -59,7 +59,7 @@ console.log('ACTUAL: foundAt1 =', foundAt1)
 // ***************** Array.prototype.from()
 
 // EX 7 - The code:
-var els = document.querySelectorAll('script')
+var els = Array.from(document.querySelectorAll('script'))
 
 // Testing (dont touch)
 console.log('\nEX 7:')
@@ -67,7 +67,7 @@ console.log('EXPECTED: [script]')
 console.log('ACTUAL: ', els)
 
 // EX 8 - The code:
-function foo() {
+function foo(...arguments) {
     return arguments.map(a => a * 10)
 }
 

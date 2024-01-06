@@ -3,7 +3,7 @@ let map = new Map()
 map.set('food', 'bamia')
 console.log('map:', map)
 
-const value = map.get('foo')
+const value = map.get('food')
 
 // testing (dont touch)
 console.log('\nEX 1:')
